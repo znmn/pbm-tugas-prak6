@@ -48,6 +48,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Form Tidak Boleh Kosong';
+                  } else if (value != username) {
+                    return 'Username Salah';
                   }
                   return null;
                 },
@@ -65,6 +67,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Form Tidak Boleh Kosong';
+                  } else if (value != password) {
+                    return 'Password Salah';
                   }
                   return null;
                 },
@@ -75,17 +79,8 @@ class _LoginWidgetState extends State<LoginWidget> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    if (_usernameController.text == username &&
-                        _passwordController.text == password) {
-                      Navigator.pushNamed(context, Routes.home,
-                          arguments: _usernameController.text);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Username atau Password Salah"),
-                        ),
-                      );
-                    }
+                    Navigator.pushNamed(context, Routes.home,
+                        arguments: _usernameController.text);
                   }
                 },
                 child: const Text("Masuk"),
