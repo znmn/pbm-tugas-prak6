@@ -218,6 +218,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                       }
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 10,
+                    ),
+                  ),
                   child: const Text('Hitung BMI'),
                 ),
               ],
