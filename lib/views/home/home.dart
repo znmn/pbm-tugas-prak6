@@ -47,108 +47,181 @@ class _HomeWidgetState extends State<HomeWidget> {
     final String username = args ?? 'Zainul Muhaimin';
 
     return Scaffold(
-      body: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "HITUNG BMI",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text(
+          'BMI Calculator',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blueGrey[900],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "HITUNG BMI",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Halo $username",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                controller: _heightController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                Text(
+                  "Halo $username",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  controller: _heightController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
                     labelText: 'Tinggi Badan',
-                    hintText: 'in cm'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Form Tidak Boleh Kosong';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                controller: _weightController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Berat Badan',
-                    hintText: 'in kg'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Form Tidak Boleh Kosong';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                controller: _bmiController,
-                enabled: false,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'BMI',
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    try {
-                      final double height =
-                          double.parse(_heightController.text);
-                      final double weight =
-                          double.parse(_weightController.text);
-                      final List bmis = Functions.hitungBMI(weight, height);
-
-                      final String bmi = bmis[0];
-                      final String status = bmis[1];
-
-                      _bmiController.text = '$bmi ($status)';
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('BMI anda adalah $bmi ($status)'),
-                        ),
-                      );
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Tinggi atau Berat Badan tidak valid'),
-                        ),
-                      );
+                    hintText: 'in cm',
+                    labelStyle: TextStyle(
+                      color: Colors.blueGrey[700],
+                      fontWeight: FontWeight.bold,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorStyle: const TextStyle(color: Colors.red),
+                    errorMaxLines: 2,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Form Tidak Boleh Kosong';
                     }
-                  }
-                },
-                child: const Text('Hitung BMI'),
-              ),
-            ],
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: _weightController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    labelText: 'Berat Badan',
+                    hintText: 'in kg',
+                    labelStyle: TextStyle(
+                      color: Colors.blueGrey[700],
+                      fontWeight: FontWeight.bold,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorStyle: const TextStyle(color: Colors.red),
+                    errorMaxLines: 2,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Form Tidak Boleh Kosong';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: _bmiController,
+                  enabled: false,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey[600],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    labelText: 'BMI',
+                    labelStyle: TextStyle(
+                      color: Colors.cyan[400],
+                      fontWeight: FontWeight.bold,
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    errorStyle: const TextStyle(color: Colors.red),
+                    errorMaxLines: 2,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        final double height =
+                            double.parse(_heightController.text);
+                        final double weight =
+                            double.parse(_weightController.text);
+                        final List bmis = Functions.hitungBMI(weight, height);
+
+                        final String bmi = bmis[0];
+                        final String status = bmis[1];
+
+                        _bmiController.text = '$bmi ($status)';
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('BMI anda adalah $bmi ($status)'),
+                          ),
+                        );
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Tinggi atau Berat Badan tidak valid'),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  child: const Text('Hitung BMI'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
